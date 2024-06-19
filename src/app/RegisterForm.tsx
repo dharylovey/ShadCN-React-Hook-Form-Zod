@@ -22,14 +22,19 @@ import { Separator } from "@/components/ui/separator";
 
 type RegisterSchema = z.infer<typeof schema>;
 export default function RegisterForm() {
+  
+
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(schema),
     defaultValues: {
       name: "",
       last: "",
       email: "",
+      password: '',
     },
   });
+
+  const {formState: {errors, isSubmitting}, reset} = form
 
 const onSubmit = async (data: RegisterSchema) => {
   try {
@@ -41,7 +46,10 @@ const onSubmit = async (data: RegisterSchema) => {
       body: JSON.stringify(data),
     })
     const resData = await response.json()
-    // console.log(resData)
+    console.log(resData)
+
+    reset()
+
   } catch (error) {
     console.error(error)
   }
@@ -97,8 +105,34 @@ const onSubmit = async (data: RegisterSchema) => {
                 </FormItem>
               )}
             />
-            <Button className="w-full mb-4" type="submit">
-              Submit
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input placeholder="********" {...field} type="password"/>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <FormControl>
+                    <Input placeholder="********" {...field} type="password"/>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button className="w-full mb-4" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Loading..." : "Register"}
             </Button>
             <Separator/>
             <p className="text-center">Already have an account? <Link href="/login" className="hover:underline text-sky-500">Login</Link></p>

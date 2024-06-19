@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { schema } from "@/app/RegisterSChema";
 
 export async function POST(request: NextRequest) {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const data = await request.json();
   const parsed = schema.safeParse(data);
 
