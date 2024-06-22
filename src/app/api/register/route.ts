@@ -9,7 +9,6 @@ export async function POST(request: NextRequest) {
   
   // 
   if (parsed.success) {
-    //TODO: Create User || add to database
     return NextResponse.json({
       message: "User Registered!",
       user: parsed.data,
