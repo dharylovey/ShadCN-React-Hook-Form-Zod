@@ -31,10 +31,11 @@ export default function RegisterForm() {
       last: "",
       email: "",
       password: '',
+      confirmPassword: '',
     },
   });
 
-  const {formState: {errors, isSubmitting}, reset} = form
+  const {formState: { isSubmitting}, reset} = form
 
 const onSubmit = async (data: RegisterSchema) => {
   try {

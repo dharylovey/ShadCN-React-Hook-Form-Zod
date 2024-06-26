@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { schema } from "@/app/(auth)/register/RegisterSChema";
+import { schema } from "@/app/(auth)/login/LoginSchema";
 import { redirect } from "next/navigation";
 
 export async function POST(request: NextRequest) {
@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
   
   // 
   if (parsed.success) {
-    return NextResponse.json({
+     return NextResponse.json({
       // TODO add user to database
       message: "User Registered!",
       user: parsed.data,
@@ -25,5 +25,6 @@ export async function POST(request: NextRequest) {
       errors: parsed.error,
     },
     { status: 400 }
-  );
+    );
+    
 }
